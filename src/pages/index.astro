@@ -1,15 +1,24 @@
 ---
+import Link from "../components/Link.astro";
+import Base from "../layouts/Base.astro"
+import Page from "../components/Page"
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog")
+
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+
+<Base>
+	<h1 class="text-3xl mb-2">Hey, im Saige</h1>
+	<div class="flex flex-col gap-2 mb-5">
+		<p class="mb-2">I'm a 15 year old full stack developer based out of <Link href="https://en.wikipedia.org/wiki/England">England, UK</Link> who enjoys building modern and elegent <br/>designs along with secure and reliable systems.</p>
+		<p>Currenlty working on personal side projects and attempting to contribute more to open source <br/>materials/tools, which you can see my progress <Link href="https://github.com/saigees">here<Link/><p class="opacity-25">you should follow while you're there. P.S this website is inspired by <Link href="https://www.beanacre.xyz/">Ben Greenwood's Portfolio</Link></p></p> 
+	</div>
+	<div class="flex flex-col gap-2">
+		{posts.filter(f => !f.data.private).map((post) => {
+			return <Page title={post.data.title} description={post.data.description} date={post.data.date} href={`/writings/${post.slug}`}/>
+		})}
+		<!-- <Page title="New beginnings" description="woohooosdfiahjgigahsoughaoughaughsdughsdhsughsudhgsudhgsidughsdiuhsdgihgsdighsdigsdhuigsdhiusdghgisduhsdgiuhgsd" href="/wooghoo" date="20/10/223"/> -->
+	</div>
+</Base>

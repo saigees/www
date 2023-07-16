@@ -1,0 +1,33 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Card from "../../components/Card.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+type Props = {
+    post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Base>
+    <div class="flex justify-between px-2 items-center mb-5">
+        <h1 onclick="window.location.href = '/'" class="text-3xl cursor-pointer">{post.data.title}</h1>
+        <p class="opacity-25 magno">{post.data.date}</p>
+    </div>
+    <Card>
+        <div class="blog">
+            <Content />
+        </div>
+    </Card>
+</Base>

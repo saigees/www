@@ -1,0 +1,81 @@
+---
+title: "Fig"
+description: "A modern wrapper for Eris to help you build your own discord bots."
+date: "16/07/2023"
+private: true
+---
+
+import Link from "../../components/Link.astro"
+
+### What is Eris and how does Fig help?
+
+Eris is a Node.JS library that allows you to interact with the Discord API. However it can be hard for some people to understand ( especially if you are still new to programming ). Fig is a wrapper built ontop of Eris that allows its functionality to be used easier and in a more beginner friendly way.
+
+### How do I install Fig?
+
+Fig is available on NPM and can be installed by running the following command in your terminal:
+
+```bash
+npm install @saige/fig
+```
+
+### How do I use Fig?
+
+Fig is currently in beta which means that you will still have to use some Eris features. These can be easily understood by reading the Eris documentation or looking through their examples directory on their <Link href="https://github.com/abalabahaha/eris/tree/dev/examples">github repository</Link>.
+<br/>
+Here is an example getting started with Fig, more examples can be seen in its <Link href="https://github.com/saigees/fig">github repository</Link>
+
+```ts
+import Fig from "@saige/fig"
+
+export const client = new Fig("<DISCORD_TOKEN>", {
+    commands: `${__dirname}/commands`,
+    events: `${__dirname}/events`
+    prefix: "!", // Only required if you dont plan on using slash commands.
+    ...optionalOptions
+})
+
+client.login()
+```
+
+This will initalize a Fig client and login to the discord API. You can then use the defined directorys to create commands/events for your bot.
+
+
+### Creating your first command & event.
+
+
+```ts
+import { client } from "../"
+import { Command, CommandCtx } from "@saige/fig"
+
+export default class HelpCommand extends Command {
+  constructor() {
+    super("command-name", {
+      ...commandOptions
+    });
+  }
+
+  public override execute(ctx: CommandCtx): Promise<void> {
+    client.eris.createMessage(ctx.channel.id, "hello world");
+    return;
+  }
+}
+```
+
+
+```ts
+import Eris from "eris";
+import { Modules, Event } from "@saige/fig";
+import { client } from "../";
+
+export default class ReadyEvent extends Event<keyof Eris.ClientEvents> {
+  constructor() {
+    super("ready");
+  }
+
+  public override execute(args: Eris.ClientEvents["ready"]): Promise<void> {
+    console.log(`Hello world!`)
+    return;
+  }
+}
+```

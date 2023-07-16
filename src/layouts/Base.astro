@@ -1,0 +1,25 @@
+---
+import "../globals.css";
+import BackgroundGrid from "../components/BackgroundGrid";
+const { pathname } = Astro.url
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>ᓚᘏᗢ {pathname.length > 1 ? `| ${pathname.slice(1)}` : ``}</title>
+	</head>
+	<body class="max-w-screen max-h-screen overflow-hidden">
+		<div class="w-[100%] h-[100%] overflow-hidden">
+			<div class="bg-noisy pointer-events-none absolute inset-0 z-10">
+			</div>
+			<BackgroundGrid />
+		</div>
+		<div class="mx-auto max-w-3xl px-[2rem] mt-[10rem]">
+			<slot />
+		</div>
+	</body>
+</html>

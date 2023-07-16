@@ -1,0 +1,7 @@
+---
+const { className } = Astro.props;
+---
+
+<div class={`bg-black/30 p-2 w-full border border-white/5 h-fit max-h-[695px] overflow-y-scroll ${className}`}>
+    <slot />
+</div>
