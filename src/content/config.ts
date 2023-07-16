@@ -5,7 +5,7 @@ export const collections = {
         type: "content",
         schema: z.object({
             title: z.string(),
-            description: z.string(),
+            description: z.string().default("🤷‍♀️"),
             date: z.string(),
             private: z.boolean().default(false),
         })
