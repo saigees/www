@@ -13,7 +13,8 @@ yarn-error.log*
 pnpm-debug.log*
 
 pnpm-lock.yaml
-
+.yarn/**
+.yarn
 
 # environment variables
 .env
@@ -21,3 +22,4 @@ pnpm-lock.yaml
 
 # macOS-specific files
 .DS_Store
+.astro
